@@ -7,11 +7,21 @@ jobs:
   process-issue:
     runs-on: ubuntu-latest
     steps:
+      - name: List files in current workspace before downloading
+        run: |
+          echo "Listing files in workspace before downloading artifact:"
+          ls -alh  # This lists all files in the current directory
+
       - name: Download Issue Number Artifact
         uses: actions/download-artifact@v3
         with:
           name: issue-number  # Ensure this matches the artifact name from Workflow 1
-          path: .  # Specify the directory where the artifact will be downloaded
+          path: .  # Store the downloaded artifact in the current directory
+
+      - name: List files after downloading
+        run: |
+          echo "Listing files after downloading the artifact:"
+          ls -alh  # Check if issue_number.txt is in the directory
 
       - name: Read Issue Number
         run: |
