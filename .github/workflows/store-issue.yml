@@ -1,0 +1,32 @@
+name: Store Issue Number
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  store-issue-number:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get issue number
+        run: echo "ISSUE_NUMBER=${{ github.event.issue.number }}" >> $GITHUB_ENV
+
+      - name: Cache the issue number
+        uses: actions/cache@v3
+        with:
+          path: issue-number.txt
+          key: issue-number
+          restore-keys: issue-number
+
+      - name: Write the issue number to a file
+        run: echo ${{ env.ISSUE_NUMBER }} > issue-number.txt
+
+      - name: Save cache with issue number
+        uses: actions/cache@v3
+        with:
+          path: issue-number.txt
+          key: issue-number-${{ env.ISSUE_NUMBER }}
