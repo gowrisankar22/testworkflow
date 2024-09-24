@@ -1,0 +1,25 @@
+name: Process Issue Number
+
+on:
+  workflow_dispatch:  # Manually triggered workflow
+
+jobs:
+  process-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Issue Number Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: issue-number
+          path: .
+
+      - name: Read Issue Number
+        run: |
+          ISSUE_NUMBER=$(cat issue_number.txt)
+          echo "Processing issue number: $ISSUE_NUMBER"
+
+      - name: Example Processing Step
+        run: |
+          ISSUE_NUMBER=$(cat issue_number.txt)
+          # Perform your processing logic here
+          echo "Processing logic with issue #$ISSUE_NUMBER"
