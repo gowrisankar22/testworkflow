@@ -13,7 +13,8 @@ jobs:
           echo "Listing available artifacts:"
           gh run list  # lists all recent runs
           gh run view <run_id> --log  # view the logs of a specific run
-
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Download Issue Number Artifact
         uses: actions/download-artifact@v3
         with:
