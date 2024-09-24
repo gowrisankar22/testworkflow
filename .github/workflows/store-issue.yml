@@ -1,8 +1,9 @@
-name: Store Issue Number
+name: Store and Process Issue Number
 
 on:
   issues:
     types: [opened]
+  workflow_dispatch:  # Manually trigger the workflow if needed
 
 jobs:
   store-issue:
@@ -14,8 +15,39 @@ jobs:
       - name: Store Issue Number as Artifact
         run: echo "${{ github.event.issue.number }}" > issue_number.txt
 
-      - name: Upload Issue Number
+      - name: Upload Issue Number Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: issue-number
+          name: issue-number  # The name of the artifact
           path: issue_number.txt
+
+  process-issue:
+    needs: store-issue  # This job will only run after 'store-issue' completes
+    runs-on: ubuntu-latest
+    steps:
+      - name: List files in the workspace before downloading
+        run: |
+          echo "Listing files in workspace before downloading artifact:"
+          ls -alh
+
+      - name: Download Issue Number Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: issue-number
+          path: .  # Download to ./artifacts directory
+
+      - name: List files after downloading
+        run: |
+          echo "Listing files in ./artifacts directory after downloading:"
+          ls -alh
+
+      - name: Read and Process Issue Number
+        run: |
+          ISSUE_NUMBER=$(cat issue_number.txt)
+          echo "Processing issue number: $ISSUE_NUMBER"
+
+      - name: Example Processing Step
+        run: |
+          ISSUE_NUMBER=$(cat issue_number.txt)
+          # Add your processing logic here
+          echo "Processing logic with issue #$ISSUE_NUMBER"
