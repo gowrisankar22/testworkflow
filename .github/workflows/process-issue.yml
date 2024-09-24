@@ -10,7 +10,7 @@ jobs:
       - name: List files in current workspace before downloading
         run: |
           echo "Listing files in workspace before downloading artifact:"
-          ls -alh ./artifacts  # This lists all files in the current directory
+          ls -alh  # This lists all files in the current directory
 
       - name: Download Issue Number Artifact
         uses: actions/download-artifact@v3
