@@ -3,6 +3,8 @@ name: Store Issue Number
 on:
   issues:
     types: [opened, edited]
+  workflow_dispatch: # Trigger this workflow manually
+  # You can also trigger this workflow on other events like pull requests
 
 jobs:
   store-issue-number:
