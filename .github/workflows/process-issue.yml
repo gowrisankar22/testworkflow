@@ -1,16 +1,23 @@
 name: Process Issue Number
 
 on:
-  workflow_dispatch:  # Manually triggered workflow
+  workflow_dispatch:
 
 jobs:
   process-issue:
     runs-on: ubuntu-latest
     steps:
+      # Optional step to check if the artifact is available
+      - name: List Artifacts (for debugging)
+        run: |
+          echo "Listing available artifacts:"
+          gh run list  # lists all recent runs
+          gh run view <run_id> --log  # view the logs of a specific run
+
       - name: Download Issue Number Artifact
         uses: actions/download-artifact@v3
         with:
-          name: issue-number
+          name: issue-number  # Must match the upload name
           path: .
 
       - name: Read Issue Number
