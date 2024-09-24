@@ -1,0 +1,29 @@
+name: Process Issue Number
+
+on:
+  workflow_dispatch: # Trigger this workflow manually
+  # You can also trigger this workflow on other events like pull requests
+
+jobs:
+  process-issue-number:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Restore cached issue number
+        uses: actions/cache@v3
+        with:
+          path: issue-number.txt
+          key: issue-number
+
+      - name: Read the issue number from the file
+        id: read-issue
+        run: |
+          ISSUE_NUMBER=$(cat issue-number.txt)
+          echo "Issue Number: $ISSUE_NUMBER"
+          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
+
+      - name: Process the issue number
+        run: echo "Processing Issue Number: ${{ env.ISSUE_NUMBER }}"
