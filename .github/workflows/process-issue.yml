@@ -10,8 +10,8 @@ jobs:
       - name: Download Issue Number Artifact
         uses: actions/download-artifact@v3
         with:
-          name: issue-number  # Must match the upload name
-          path: issue_number.txt
+          name: issue-number  # Ensure this matches the artifact name from Workflow 1
+          path: .  # Specify the directory where the artifact will be downloaded
 
       - name: Read Issue Number
         run: |
