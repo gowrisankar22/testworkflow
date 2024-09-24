@@ -18,7 +18,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: issue-number  # Must match the upload name
-          path: .
+          path: issue_number.txt
 
       - name: Read Issue Number
         run: |
