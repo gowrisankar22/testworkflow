@@ -24,6 +24,3 @@ jobs:
           ISSUE_NUMBER=$(cat issue-number.txt)
           echo "Issue Number: $ISSUE_NUMBER"
           echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
-
-      - name: Process the issue number
-        run: echo "Processing Issue Number: ${{ env.ISSUE_NUMBER }}"
