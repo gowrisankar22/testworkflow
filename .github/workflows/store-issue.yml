@@ -1,0 +1,21 @@
+name: Store Issue Number
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  store-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log Issue Number
+        run: echo "Issue Number is ${{ github.event.issue.number }}"
+
+      - name: Store Issue Number as Artifact
+        run: echo "${{ github.event.issue.number }}" > issue_number.txt
+
+      - name: Upload Issue Number
+        uses: actions/upload-artifact@v3
+        with:
+          name: issue-number
+          path: issue_number.txt
